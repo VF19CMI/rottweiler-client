@@ -18,15 +18,18 @@ module Rottweiler
         :body => attributes.to_json,
         :headers => { 'Content-Type' => 'application/json' } )
     end
+
     def update_user(attributes)
       HTTParty.post(@site + '/users/update', 
         :body => attributes.to_json,
         :headers => { 'Content-Type' => 'application/json' } )
     end
+
     def validate_credentials(attributes)
-      HTTParty.post(@site + '/users/validate_credentials', 
+      response = HTTParty.post(@site + '/users/validate_credentials', 
         :body => attributes.to_json,
         :headers => { 'Content-Type' => 'application/json' } )
+      response.code == 200 ? true : false
     end
   end
 end
